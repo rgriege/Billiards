@@ -1,0 +1,18 @@
+#ifndef DISK_H
+#define DISK_H
+
+#include "./RigidBody.h"
+#include "./math.h"
+
+class Disk: public RigidBody {
+public:
+  Disk(GLfloat _radius);
+  Interval project(Vec2 axis);
+  void rotate(GLfloat radians) {}
+  string get_type() { return "disk" }
+  void draw();
+private:
+  GLfloat radius;
+};
+
+#endif

@@ -1,0 +1,33 @@
+#include "./RigidBody.h"
+
+using namespace std;
+
+RigidBody::RigidBody() {
+  color = Color(0, 0, 0);
+  mass = 1;
+  center = Vec2();
+  velocity = Vec2();
+  acceleration = Vec2();
+}
+
+void RigidBody::apply_impulse(Vec2 impulse) {
+  velocity += impulse/mass;
+}
+
+void RigidBody::apply_force(Vec2 force) {
+  acceleration += force/mass;
+}
+
+void RigidBody::move(GLfloat time) {
+  center += velocity;
+  velocity += acceleration;
+  acceleration = Vec2(0, 0);
+}
+
+void RigidBody::translate(Vec2 change) {
+  center += change;
+}
+
+void RigidBody::set_color(Color _color) {
+  color = _color;
+}

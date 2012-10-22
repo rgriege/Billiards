@@ -1,0 +1,147 @@
+#include "./Vec2.h"
+#include "./math.h"
+#include <sstream>
+
+const Vec2 Vec2::X_AXIS(1, 0);
+const Vec2 Vec2::Y_AXIS(0, 1);
+
+Vec2::Vec2() {
+  x = 0;
+  y = 0;
+}
+
+Vec2::Vec2(float _x, float _y) {
+  x = _x;
+  y = _y;
+}
+
+float Vec2::magnitude() {
+  return sqrt(mag_squared());
+}
+
+float Vec2::mag_squared() {
+  return x*x + y*y;
+}
+
+void Vec2::normalize() {
+  scale_equals(1/magnitude());
+}
+
+Vec2 Vec2::unit_vector() {
+  if(is_unit_vector())
+    return copy();
+  else
+    return scale(1/magnitude());
+}
+bool Vec2::is_unit_vector() {
+  return mag_squared() == 1;
+}
+
+Vec2 Vec2::operator+(Vec2 other) {
+  return plus(other);
+}
+
+Vec2 Vec2::operator+=(Vec2 other) {
+  plus_equals(other);
+  return *this;
+}
+
+Vec2 Vec2::operator-(Vec2 other) {
+  return minus(other);
+}
+
+Vec2 Vec2::operator-=(Vec2 other) {
+  minus_equals(other);
+  return *this;
+}
+
+Vec2 Vec2::operator*(float n) {
+  return scale(n);
+}
+
+Vec2 Vec2::operator*=(float n) {
+  scale_equals(n);
+  return *this;
+}
+
+Vec2 Vec2::operator/(float n) {
+  return scale(1/n);
+}
+
+Vec2 Vec2::operator/=(float n) {
+  scale_equals(1/n);
+  return *this;
+}
+
+Vec2 Vec2::plus(Vec2 other) {
+  return Vec2(x+other.x, y+other.y);
+}
+
+void Vec2::plus_equals(Vec2 other) {
+  x += other.x;
+  y += other.y;
+}
+
+Vec2 Vec2::minus(Vec2 other) {
+  return Vec2(x-other.x, y-other.y);
+}
+
+void Vec2::minus_equals(Vec2 other) {
+  x -= other.x;
+  y -= other.y;
+}
+
+Vec2 Vec2::scale(float n) {
+  return Vec2(x*n, y*n);
+}
+
+void Vec2::scale_equals(float n) {
+  x *= n;
+  y *= n;
+}
+
+float Vec2::dot(Vec2 other) {
+  return x*other.x + y*other.y;
+}
+
+Vec2 Vec2::project(Vec2 other) {
+  Vec2 axis = other.unit_vector();
+  return axis.scale(dot(other));
+}
+
+Vec2 Vec2::get_perp(bool left) {
+  if(left)
+    return Vec2(y, -x);
+  else
+    return Vec2(-y, x);
+}
+
+Vec2 Vec2::invert() {
+  return Vec2(-x, -y);
+}
+
+void Vec2::invert_equals() {
+  x = -x;
+  y = -y;
+}
+
+bool Vec2::equals(Vec2 other) {
+  return x == other.x && y == other.y;
+}
+bool Vec2::is_zero() {
+  return mag_squared() == 0;
+}
+bool Vec2::shares_quadrant(Vec2 other) {
+  return dot(other) >= 0;
+}
+
+Vec2 Vec2::copy() {
+  return Vec2(x, y);
+}
+
+string Vec2::to_string() {
+  stringstream ssx, ssy;
+  ssx << x;
+  ssy << y;
+  return "(" + ssx.str() + "," + ssy.str() + ")";
+}

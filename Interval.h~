@@ -1,0 +1,23 @@
+#ifndef INTERVAL_H
+#define INTERVAL_H
+
+#include <string>
+using namespace std;
+
+class Interval {
+public:
+  Interval(float _left, float _right);
+  float get_left() { return left; }
+  float get_right() { return right; }
+  void set_left(float _left) { left = _left; }
+  void set_right(float _right) { right = _right; }
+  float length();
+  bool contains(float x);
+  bool overlaps(Interval other);
+  float overlap_dist(Interval other);
+  string to_string();
+private:
+  float left, right;
+};
+
+#endif

@@ -1,0 +1,24 @@
+#ifndef COLLISION_H
+#define COLLISION_H
+
+#include "./RigidBody.h"
+#include <vector>
+using namespace std;
+
+class Collision {
+public:
+  Collision(RigidBody &_body1, RigidBody &_body2);
+  bool exists();
+private:
+  bool bounds_overlap();
+  vector<Vec2> find_possible_axes();
+  Vec2 find_collisions_vec();
+  RigidBody body1, body2;
+  Vec2 c2c_vec, collision_axis, collision_vec;
+  Vec2 impact_point, radius1, radius2, ip_velocity;
+  GLfloat penetration_time;
+  bool close, axis_from_body1;
+  vector<Vec2> possible_axes;
+};
+
+#endif

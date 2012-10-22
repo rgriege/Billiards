@@ -1,0 +1,28 @@
+#include "./Disk.h"
+
+using namespace std;
+
+Disk::Disk(GLfloat _radius) {
+  radius = _radius;
+}
+
+Interval Disk::project(Vec2 axis) {
+  if(!axis.is_unit_vector())
+    axis.normalize();
+
+  float center_proj = get_center().dot(axis);
+  return Interval(center_proj - radius, center_proj + radius);
+}
+
+void Disk::draw() {
+  Color c = get_color();
+  glColor3f(c.r, c.g, c.b);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+  glBegin(GL_POLYGON);
+  Vec2 pos = get_center();
+  for (int i = 0; i < 60; i++) {
+    glVertex2f(pos.get_x()+radius*cos(i*PI/30),
+	       pos.get_y()+radius*sin(i*PI/30));
+  }
+  glEnd();
+}

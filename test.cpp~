@@ -1,0 +1,13 @@
+#include <iostream>
+#include "Rational.h"
+
+using namespace std;
+
+int main() {
+  cout << "Hello world" << endl;
+  Rational r;
+  Rational r1(4, 2);
+  Rational r2(2, 3);
+  r1 = r1 + r2;
+  return 0;
+}

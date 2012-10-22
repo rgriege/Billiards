@@ -1,0 +1,46 @@
+#ifndef VEC2_H
+#define VEC2_H
+
+#include "./Common.h"
+#include <string>
+using namespace std;
+
+class Vec2 {
+public:
+  Vec2();
+	Vec2(GLfloat _x, GLfloat _y);
+	GLfloat magnitude();
+	GLfloat mag_squared();
+  void normalize();
+	Vec2 unit_vector();
+	bool is_unit_vector();
+  Vec2 operator+(Vec2 other);
+  Vec2 operator+=(Vec2 other);
+  Vec2 operator-(Vec2 other);
+  Vec2 operator-=(Vec2 other);
+  Vec2 operator*(GLfloat n);
+  Vec2 operator*=(GLfloat n);
+  Vec2 operator/(GLfloat n);
+  Vec2 operator/=(GLfloat n);
+  GLfloat dot(Vec2 other);
+  Vec2 project(Vec2 axis);
+  Vec2 get_perp(bool left);
+  Vec2 invert();
+  void invert_equals();
+  bool equals(Vec2 other);
+  bool is_zero();
+  bool shares_quadrant(Vec2 other);
+  Vec2 copy();
+  string to_string();
+  static const Vec2 X_AXIS, Y_AXIS;
+private:  
+  Vec2 plus(Vec2 other);
+  void plus_equals(Vec2 other);
+  Vec2 minus(Vec2 other);
+  void minus_equals(Vec2 other);
+  Vec2 scale(GLfloat n);
+  void scale_equals(GLfloat n);
+  GLfloat x, y;
+};
+
+#endif

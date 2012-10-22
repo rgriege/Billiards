@@ -1,0 +1,32 @@
+#include "./Polygon.h"
+
+using namespace std;
+
+Polygon::Polygon() {
+
+}
+
+Polygon::Polygon(vector<Vec2> _vertices) {
+  vertices = _vertices;
+}
+
+Interval Polygon::project(Vec2 axis) {
+  if(!axis.is_unit_vector())
+    axis.normalize();
+
+  float vertex_projection = vertices[0].dot(axis);
+  Interval result(vertex_projection, vertex_projection);
+  int len = vertices.size();
+  for(int i = 1; i < len; i++) {
+    vertex_projection = vertices[i].dot(axis);
+    if(vertex_projection < result.get_left())
+      result.set_left(vertex_projection);
+    else if(vertex_projection > result.get_right())
+      result.set_right(vertex_projection);
+  }
+  return result;
+}
+
+string RigidBody::get_type() {
+  return "polygon";
+}

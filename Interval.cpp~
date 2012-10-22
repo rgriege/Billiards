@@ -1,0 +1,32 @@
+#include "Interval.h"
+#include "math.h"
+
+Interval::Interval(float _left, float _right) {
+  left = _left;
+  right = _right;
+}
+
+float Interval::length() {
+  return right - left;
+}
+
+bool Interval::contains(float x) {
+  return x >= left && x <= right;
+}
+
+bool Interval::overlaps(Interval other) {
+  return contains(other.left) || contains(other.right);
+}
+
+float Interval::overlap_dist(Interval other) {
+  float maxDiff = (length() > other.length()) ? length() : other.length();
+	float diff1 = right - other.left;
+	if(diff1 < 0 || diff1 > maxDiff) diff1 = 0;
+	float diff2 = other.right - left;
+	if(diff2 < 0 || diff2 > maxDiff) diff2 = 0;
+	// return the smallest nonzero if one exists
+	if(diff1 == 0 || diff2 == 0)
+		return diff1 + diff2;
+	else
+		return (diff1 < diff2) ? diff1 : diff2;
+}

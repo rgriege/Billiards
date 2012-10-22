@@ -1,0 +1,21 @@
+#ifndef POLYGON_H
+#define POLYGON_H
+
+#include "./RigidBody.h"
+#include "./Interval.h"
+#include "./Vec2.h"
+#include <vector>
+using namespace std;
+
+class Polygon: public RigidBody {
+public:
+  Polygon();
+  Polygon(vector<Vec2>);
+  Interval project(Vec2 axis);
+private:
+  int num_distinct_axes;
+  bool defined_ccw;
+  vector<Vec2> vertices;
+};
+
+#endif
